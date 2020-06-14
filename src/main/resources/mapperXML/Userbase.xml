@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.endnether.webforoj.mapper.UserMapper">
+    <select id="getPassword" resultType="string">
+        select password from users where userid = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getUsername" resultType="string">
+        select username from users where userid = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getToken" resultType="string">
+        select token from tokens where userid = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getExisted" resultType="integer">
+        select count(*) from users where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <update id="setToken">
+        update tokens set token = #{token,jdbcType=VARCHAR} where userid = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="setNewStamp">
+        update tokens set stamp = #{stamp,jdbcType=VARCHAR} where userid = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="setNewExpireStamp">
+        update tokens set expire = #{stamp,jdbcType=VARCHAR} where userid = #{id,jdbcType=INTEGER}
+    </update>
+    <insert id="setAll">
+        insert into tokens(userid,token,stamp,expire) values (#{id,jdbcType=INTEGER},#{token,jdbcType=VARCHAR},#{stamp,jdbcType=VARCHAR},#{expire,jdbcType=VARCHAR})
+    </insert>
+</mapper>
